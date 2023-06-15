@@ -22,6 +22,26 @@ public:
 
 	void clear();
 
+	struct iterator
+	{
+		iterator(const MyVector &vector, std::size_t pos);
+
+		iterator &operator++();
+		iterator &operator--();
+
+		T operator*() const;
+
+		bool operator==(const iterator &other) const;
+		bool operator!=(const iterator &other) const;
+
+	private:
+		const MyVector &_vector;
+		std::size_t _pos{ 0 };
+	};
+
+	iterator begin() const;
+	iterator end() const;
+
 private:
 	std::size_t _size{ 0 };
 	std::size_t _capacity{ 0 };
@@ -157,4 +177,71 @@ template<class T, class Allocator>
 void MyVector<T, Allocator>::clear()
 {
 	_size = 0;
+}
+
+
+
+template<class T, class Allocator>
+MyVector<T, Allocator>::iterator::iterator(const MyVector& vector, std::size_t pos)
+	: _vector{ vector }
+	, _pos{ pos }
+{
+}
+
+
+
+template<class T, class Allocator>
+typename MyVector<T, Allocator>::iterator &MyVector<T, Allocator>::iterator::operator++()
+{
+	_pos++;
+	return *this;
+}
+
+
+
+template<class T, class Allocator>
+typename MyVector<T, Allocator>::iterator &MyVector<T, Allocator>::iterator::operator--()
+{
+	_pos--;
+	return *this;
+}
+
+
+
+template<class T, class Allocator>
+T MyVector<T, Allocator>::iterator::operator*() const
+{
+	return _vector.at(_pos);
+}
+
+
+
+template<class T, class Allocator>
+bool MyVector<T, Allocator>::iterator::operator==(const MyVector<T, Allocator>::iterator &other) const
+{
+	return _pos == other._pos;
+}
+
+
+
+template<class T, class Allocator>
+bool MyVector<T, Allocator>::iterator::operator!=(const MyVector<T, Allocator>::iterator &other) const
+{
+	return !(*this == other);
+}
+
+
+
+template<class T, class Allocator>
+typename MyVector<T, Allocator>::iterator MyVector<T, Allocator>::begin() const
+{
+	return iterator{*this, 0};
+}
+
+
+
+template<class T, class Allocator>
+typename MyVector<T, Allocator>::iterator MyVector<T, Allocator>::end() const
+{
+	return iterator{*this, _size};
 }

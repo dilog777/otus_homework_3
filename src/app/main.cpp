@@ -40,8 +40,8 @@ void fillVectorByRange(V &vector, std::size_t size)
 template<typename V>
 void printVector(const V &vector)
 {
-	for (std::size_t i = 0; i < vector.size(); ++i)
-		std::cout << vector.at(i) << std::endl;
+	for (const auto &value : vector)
+		std::cout << value << std::endl;
 }
 
 

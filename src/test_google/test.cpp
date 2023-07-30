@@ -66,11 +66,3 @@ TEST(test_google_version, test_my_vector_with_my_allocator)
 	for (std::size_t i = 0; i < vector1.size(); ++i)
 		EXPECT_TRUE(vector1.at(i) == vector2.at(i));
 }
-
-
-
-
-int main(int argc, char** argv) {
-	testing::InitGoogleTest(&argc, argv);
-	return RUN_ALL_TESTS();
-}
